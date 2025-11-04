@@ -21,7 +21,7 @@ FROM nginx:alpine
 RUN rm -rf /usr/share/nginx/html/*
 
 # Copy hasil build Angular ke Nginx
-COPY --from=build /app/dist/ /usr/share/nginx/html/
+COPY --from=build /app/dist/browser/ /usr/share/nginx/html/
 
 # Atur izin file
 RUN chmod -R 755 /usr/share/nginx/html
@@ -29,7 +29,6 @@ RUN chmod -R 755 /usr/share/nginx/html
 # Salin konfigurasi Nginx khusus Angular SPA
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Expose port 80
 EXPOSE 80
 
 # Jalankan Nginx
