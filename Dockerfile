@@ -14,7 +14,7 @@ RUN npm install
 COPY angular.json ./
 COPY tsconfig*.json ./
 COPY src ./src
-COPY public ./public  # jika ada folder public
+COPY public ./public
 
 # Build Angular untuk production
 RUN npm run build
