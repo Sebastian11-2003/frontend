@@ -11,9 +11,6 @@ COPY . .
 # Build aplikasi Angular
 RUN npm run build
 
-# Debug optional: lihat isi folder dist
-RUN echo "=== ISI FOLDER DIST ===" && ls -R /app/dist
-
 # Stage 2: Serve dengan Nginx
 FROM nginx:alpine
 
