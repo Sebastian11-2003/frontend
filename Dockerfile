@@ -17,8 +17,9 @@ FROM nginx:alpine
 # Hapus file default nginx
 RUN rm -rf /usr/share/nginx/html/*
 
-# Copy hasil build Angular (versi baru hasilnya di dist/browser)
-COPY --from=build /app/dist/browser/ /usr/share/nginx/html/
+# Copy hasil build Angular (files langsung di dist/, bukan dist/browser/)
+COPY --from=build /app/dist/ /usr/share/nginx/html/
+
 RUN chmod -R 755 /usr/share/nginx/html
 
 # Copy konfigurasi nginx custom
