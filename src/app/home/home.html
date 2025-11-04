@@ -1,0 +1,91 @@
+<h1>TO DO LIST</h1>
+
+<div class="container">
+  <p class="subtitle">Masukkan tugas atau aktivitas Anda di sini!</p>
+
+  <!-- Input Area -->
+  <div class="input-area">
+    <input
+      type="text"
+      id="taskInput"
+      placeholder="Masukkan tugas Anda..."
+      [(ngModel)]="newTask"
+      (keyup.enter)="addTodo()"
+    />
+    <button id="addBtn" (click)="addTodo()">Tambahkan Tugas</button>
+  </div>
+
+  <!-- Filter Buttons -->
+  <div class="filters">
+    <button
+      class="filter-btn"
+      [class.active]="currentFilter === 'all'"
+      (click)="setFilter('all')"
+    >
+      Semua Tugas
+    </button>
+    <button
+      class="filter-btn"
+      [class.active]="currentFilter === 'completed'"
+      (click)="setFilter('completed')"
+    >
+      Tugas yang Selesai
+    </button>
+    <button
+      class="filter-btn"
+      [class.active]="currentFilter === 'pending'"
+      (click)="setFilter('pending')"
+    >
+      Tugas yang Belum Selesai
+    </button>
+  </div>
+
+  <!-- Todo Table -->
+  <div class="todo-table">
+    <div class="table-header">
+      <span class="task-col">Nama Tugas/Aktivitas</span>
+      <span class="actions-col">Aksi</span>
+    </div>
+
+    <ul class="todo-list">
+      <li
+        class="todo-item"
+        *ngFor="let todo of filteredTodos"
+        [class.completed]="todo.status === 1"
+      >
+        <div class="task-text" [class.completed]="todo.status === 1">
+          {{ todo.task }}
+        </div>
+
+        <div class="actions">
+          <button
+            class="toggle"
+            *ngIf="todo.status === 0"
+            (click)="toggleStatus(todo)"
+          >
+            ✅ Tandai Selesai
+          </button>
+
+          <button
+            class="toggle"
+            *ngIf="todo.status === 1"
+            (click)="toggleStatus(todo)"
+          >
+            ↩️ Tandai Belum
+          </button>
+
+          <button class="edit" (click)="editTodo(todo)">
+            ✏️ Edit
+          </button>
+          <button class="delete" (click)="deleteTodo(todo)">
+            🗑️ Hapus
+          </button>
+        </div>
+      </li>
+    </ul>
+
+    <div *ngIf="filteredTodos.length === 0" class="no-data">
+      Tidak ada tugas untuk ditampilkan.
+    </div>
+  </div>
+</div>
