@@ -2,11 +2,11 @@ FROM node:22 AS build
 
 WORKDIR /app
 
-# Salin package.json & package-lock.json, lalu install dependencies
+# Install dependencies
 COPY package*.json ./
 RUN npm install
 
-# Salin seluruh source code project
+# Salin seluruh source code
 COPY . .
 
 # Build Angular untuk production
@@ -20,8 +20,10 @@ FROM nginx:alpine
 # Hapus default Nginx content
 RUN rm -rf /usr/share/nginx/html/*
 
-# Copy isi folder browser ke root Nginx
-COPY --from=build /app/dist/browser/ /usr/share/nginx/html/
+# Copy hasil build Angular ke Nginx
+COPY --from=build /app/dist/ /usr/share/nginx/html/
+
+# Atur izin file
 RUN chmod -R 755 /usr/share/nginx/html
 
 # Salin konfigurasi Nginx khusus Angular SPA
